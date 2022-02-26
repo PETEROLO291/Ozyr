@@ -1,5 +1,5 @@
-# Ozyar
-Ozyar is a simple and easy to use OCR snipping tool to get text from images so you can copy and edit it.
+# Ozyr
+Ozyr is a simple and easy to use OCR snipping tool to get text from images so you can copy and edit it.
 
 Installation:
 

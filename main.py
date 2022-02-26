@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from string import whitespace
 from time import sleep
 from os import path, mkdir, system
 import os
@@ -53,6 +54,7 @@ threads_started = False
 image = None
 text = ""
 lang = "eng"
+invisible_char = "⠀"
 
 try:
     with open("language.txt", "r") as langu:
@@ -99,10 +101,10 @@ def OCR():
 frame = [   [sg.Button(image_filename=scan_pic, border_width=0, font=("Arial", 15), size=(13, 0), key="-CUT-", button_color=(sg.theme_background_color(), sg.theme_background_color())),
             sg.InputOptionMenu(('English', 'Spanish', 'German', 'French', 'Italian', 'Catalan'), default_value=lang_dict[lang], size=(9,120), key="-LANG-"),
             sg.Button(image_filename=copy_pic, font=("Arial", 15), size=(13, 0), key="-COPY-", button_color=(sg.theme_background_color(), sg.theme_background_color()))],
-            [sg.Multiline(size=(1000, 1000), font=("Arial", 13), key='-OUT-', no_scrollbar=True)]]
+            [sg.Multiline(default_text=f'{invisible_char * 78 + " "}Here you can edit and then copy the output', size=(1000, 1000), font=("Arial", 13), key='-OUT-', no_scrollbar=True)]]
 
-window = sg.Window('Ozyar', frame, size=(425, 150), element_justification="c", resizable=True, finalize=True, margins=(0, 2), icon="ico.ico")
-window.set_min_size((425, 150))
+window = sg.Window('Ozyr', frame, size=(425, 152), element_justification="c", resizable=True, finalize=True, margins=(0, 2), icon="ico.ico")
+window.set_min_size((425, 152))
 window['-OUT-'].Widget.config(insertbackground='#D4D4D4')
 
 
