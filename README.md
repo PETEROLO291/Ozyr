@@ -9,3 +9,7 @@ Installation:
 4- Run main.py from CMD
 
 (Python version used: 3.7.9)
+
+User Interface
+
+![Q-OCR pic](https://user-images.githubusercontent.com/73500243/155821957-aababa2b-c2da-4c96-8a0e-6611ce0b3df7.jpg)
