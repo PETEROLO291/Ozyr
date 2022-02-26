@@ -1,5 +1,5 @@
-# Quick-OCR
-Quick OCR is a simple and easy to use program to get text from images so you can copy and edit it.
+# Ozyar
+Ozyar is a simple and easy to use OCR snipping tool to get text from images so you can copy and edit it.
 
 Installation:
 

@@ -101,7 +101,7 @@ frame = [   [sg.Button(image_filename=scan_pic, border_width=0, font=("Arial", 1
             sg.Button(image_filename=copy_pic, font=("Arial", 15), size=(13, 0), key="-COPY-", button_color=(sg.theme_background_color(), sg.theme_background_color()))],
             [sg.Multiline(size=(1000, 1000), font=("Arial", 13), key='-OUT-', no_scrollbar=True)]]
 
-window = sg.Window('Quick OCR', frame, size=(425, 150), element_justification="c", resizable=True, finalize=True, margins=(0, 2), icon="ico.ico")
+window = sg.Window('Ozyar', frame, size=(425, 150), element_justification="c", resizable=True, finalize=True, margins=(0, 2), icon="ico.ico")
 window.set_min_size((425, 150))
 window['-OUT-'].Widget.config(insertbackground='#D4D4D4')
 
