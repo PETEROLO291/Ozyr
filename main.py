@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-from string import whitespace
+# Imports
 from time import sleep
-from os import path, mkdir, system
+from os import path, mkdir
 import os
 from pathlib import Path
 import PySimpleGUI as sg
@@ -10,6 +10,7 @@ import pytesseract
 import PIL.Image
 from PIL import ImageGrab as ig
 from pyperclip import copy
+from subprocess import run
 
 
 # Made By PETEROLO 291©
@@ -26,25 +27,15 @@ sg.LOOK_AND_FEEL_TABLE['CustomDarkTheme'] = {'BACKGROUND': '#373737',
                                         'BORDER': 0, 'SLIDER_DEPTH': 0, 'PROGRESS_DEPTH': 0,
                                         }
 
-
+# Set Theme
 sg.theme("CustomDarkTheme")
 
-# Get Images Path
+# Get images button
 cwd = Path(os.getcwd())
 
 scan_pic = cwd / "Buttons" / "button_scan.png"
 
 copy_pic = cwd / "Buttons" / "button_copy-output.png"
-
-
-try:
-    with open("language.txt", "r") as langu:
-        lang = langu.read()
-
-except FileNotFoundError:
-    with open("language.txt", "w") as create_langu:
-        create_langu.write("eng")
-        create_langu.close()
 
 
 
@@ -56,6 +47,7 @@ text = ""
 lang = "eng"
 invisible_char = "⠀"
 
+# Create and read saved language file
 try:
     with open("language.txt", "r") as langu:
         lang = langu.read()
@@ -66,26 +58,25 @@ except FileNotFoundError:
         create_langu.close()
 
 # Dictionary
-
 lang_dict = dict(eng="English", spa="Spanish", ita="Italian", deu="German", fra="French")
 
+# Create directory where screenshot get stored
 try:
-    mkdir(path.expandvars(r"C:\Users\%USERNAME%\Q-OCR"))
+    mkdir(path.expandvars(r"C:\Users\%USERNAME%\Ozyr"))
 
 except FileExistsError:
     pass
 
-# LpoadUp
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
+# Snipping
 def Snip():
-    system('explorer ms-screenclip:')
+    run("explorer ms-screenclip:")
     image = None
     copy('')
     while image == None:
         sleep(1)
         image = ig.grabclipboard()
-    image.save(path.expandvars(r"C:\Users\%USERNAME%\Q-OCR\OCR-Screenshot.png"))
+    image.save(path.expandvars(r"C:\Users\%USERNAME%\Ozyr\OCR-Screenshot.png"))
     OCR()
     return image
 
@@ -93,7 +84,7 @@ def Snip():
 def OCR():
     global text
     ocr_config = r"--psm 6 --oem 3"
-    text = pytesseract.image_to_string(PIL.Image.open(path.expandvars(r"C:\Users\%USERNAME%\Q-OCR\OCR-Screenshot.png")), config=ocr_config, lang=lang)
+    text = pytesseract.image_to_string(PIL.Image.open(path.expandvars(r"C:\Users\%USERNAME%\Ozyr\OCR-Screenshot.png")), config=ocr_config, lang=lang)
     copy(text)
 
 
@@ -103,14 +94,22 @@ frame = [   [sg.Button(image_filename=scan_pic, border_width=0, font=("Arial", 1
             sg.Button(image_filename=copy_pic, font=("Arial", 15), size=(13, 0), key="-COPY-", button_color=(sg.theme_background_color(), sg.theme_background_color()))],
             [sg.Multiline(default_text=f'{invisible_char * 78 + " "}Here you can edit and then copy the output', size=(1000, 1000), font=("Arial", 13), key='-OUT-', no_scrollbar=True)]]
 
+# Window construction
 window = sg.Window('Ozyr', frame, size=(425, 152), element_justification="c", resizable=True, finalize=True, margins=(0, 2), icon="ico.ico")
+
+# Minimum windows size
 window.set_min_size((425, 152))
+
+# Cursor color
 window['-OUT-'].Widget.config(insertbackground='#D4D4D4')
 
-
+# Tesseract lpoadUp
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 while running:
     event, values = window.read()
+
+    # Language detection and definition
     try:
         if values["-LANG-"] == "English":
             lang = "eng"
@@ -137,13 +136,14 @@ while running:
     except TypeError:
         pass
 
-
+    # Window hide, snip and textbox update
     if event == "-CUT-":
         window.Hide()
         image = Snip()
         window["-OUT-"].update(text)
         window.UnHide()
 
+    # Copy output text
     if event == "-COPY-":
         get_text = str(values["-OUT-"])
         get_text = copy(get_text)
