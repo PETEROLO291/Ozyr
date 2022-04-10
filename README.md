@@ -12,5 +12,4 @@ Installation:
 
 User Interface
 
-![Ozyr pic](https://user-images.githubusercontent.com/73500243/155853976-38ea260a-24e8-46db-8c79-2fa1ac0ed6fb.jpg)
-
+![Ozyr UI](https://user-images.githubusercontent.com/73500243/162634168-b904624a-f1cb-479c-ad53-2c8e9640c634.jpg)
