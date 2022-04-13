@@ -40,7 +40,6 @@ copy_pic = cwd / "Buttons" / "button_copy.png"
 
 # Variables
 running = True
-threads_started = False
 image = None
 text = ""
 lang = "eng"
